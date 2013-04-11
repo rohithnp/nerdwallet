@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 9.99
+  open: 9.99
+  high: 9.99
+  low: 9.99
+  volume: 1
+  lastClose: 9.99
+  cummulativeCashDividend: 9.99
+  cummulativeStockDividendRatio: 1
+  delay: 9.99
+
+two:
+  date: 9.99
+  open: 9.99
+  high: 9.99
+  low: 9.99
+  volume: 1
+  lastClose: 9.99
+  cummulativeCashDividend: 9.99
+  cummulativeStockDividendRatio: 1
+  delay: 9.99
