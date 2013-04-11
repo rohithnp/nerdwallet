@@ -78,7 +78,6 @@ $(document).ready(function() {
 
     //gets called when user uses 'tab' to complete query
     function onAutocompleted($e, datum){
-
         //fetch price data for the selected security
         $.getJSON('/getPrice/'+datum.id+'.json', function(data){
         //massage data into proper format for highcharts
@@ -104,29 +103,32 @@ $(document).ready(function() {
                 name: spy
             }
             */
-        var prices = [];
-        for (var i = 0; i < data.length && data;i++){
-            prices.push({
-                y : eval(data[i].last), 
-                open : eval(data[i].open), 
-                low : eval(data[i].low), 
-                high : eval(data[i].high), 
-                volume : eval(data[i].volume),
-                changeFromLastClose: eval(data[i].changeFromLastClose),
-                yield : eval(data[i].cummulativeCashDividend)/eval(data[i].last) * 100,
-                volume : eval(data[i].volume),
-            });
-        }
+            var prices = [];
+            for (var i = 0; i < data.length && data;i++){
+                prices.push({
+                    y : eval(data[i].last), 
+                    open : eval(data[i].open), 
+                    low : eval(data[i].low), 
+                    high : eval(data[i].high), 
+                    volume : eval(data[i].volume),
+                    changeFromLastClose: eval(data[i].changeFromLastClose),
+                    yield : eval(data[i].cummulativeCashDividend)/eval(data[i].last) * 100,
+                    volume : eval(data[i].volume),
+                });
+            }
 
-        //only add stock if not added already
-        if (!stockIdsAdded[datum.id]){
-             var name = {symbol:datum.symbol,fullName:datum.name};
-             chart.addSeries({data:prices,name:name});
-             stockIdsAdded[datum.id] = true;
-        }
-        //clear input box
-        $('#searchInput').typeahead('setQuery', '');
-      });
+            //only add stock if not added already
+            if (!stockIdsAdded[datum.id]){
+                 var name = {symbol:datum.symbol,fullName:datum.name};
+                 chart.addSeries({data:prices,name:name});
+                 stockIdsAdded[datum.id] = true;
+            }
+            //clear input box
+            $('#searchInput').typeahead('setQuery', '');
+        })
+        .error(function() {
+            alert("Could not get data");
+        });
     }
 
     //gets called when user selects item from dropdown
