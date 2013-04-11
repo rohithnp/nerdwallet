@@ -1,5 +1,5 @@
 Nerdwallet::Application.routes.draw do
-  resources :securities
+  resources :securities, :only => [:index]
 
   match '/' => 'securities#index'
   match 'getPrice/:id' => 'securities#getPrice'
