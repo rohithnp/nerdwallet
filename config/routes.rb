@@ -1,7 +1,7 @@
 Nerdwallet::Application.routes.draw do
   resources :securities
 
-
+  match '/' => 'securities#index'
   match 'getPrice/:id' => 'securities#getPrice'
   # The priority is based upon order of creation:
   # first created -> highest priority.
