@@ -24,7 +24,7 @@ $(document).ready(function() {
             formatter: function () {
               var color = "red";
               var s = this.point.category + '<br/>';
-              s+='<span style="font-weight:bold;color:' + this.series.color + ';">' + this.series.name +'</span><br/>';
+              s+='<span style="font-weight:bold;color:' + this.series.color + ';">' + this.series.name.symbol +'</span><br/>';
               s+='Open <b>' + this.point.open + '</b><br/>';
               s+='Low <b>' + this.point.low + '</b><br/>';
               s+='High <b>' + this.point.high + '</b><br/>';
@@ -43,7 +43,11 @@ $(document).ready(function() {
             verticalAlign: 'top',
             x: -10,
             y: 100,
-            borderWidth: 1
+            borderWidth: 1,
+            labelFormatter: function() {
+                console.log(this);
+                return this.name.fullName +' ('+this.name.symbol+')';
+            }
         }
     }
 
@@ -107,14 +111,14 @@ $(document).ready(function() {
                 volume : eval(data[i].volume),
                 changeFromLastClose: eval(data[i].changeFromLastClose),
                 yield : eval(data[i].cummulativeCashDividend)/eval(data[i].last) * 100,
-                volume : eval(data[i].volume)
-
+                volume : eval(data[i].volume),
             });
         }
 
         //only add stock if not added already
         if (!stockIdsAdded[datum.id]){
-             chart.addSeries({data:prices,name:datum.symbol});
+             var name = {symbol:datum.symbol,fullName:datum.name};
+             chart.addSeries({data:prices,name:name});
              stockIdsAdded[datum.id] = true;
         }
         //clear input box
