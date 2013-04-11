@@ -44,6 +44,9 @@ $(document).ready(function() {
             x: -10,
             y: 100,
             borderWidth: 1,
+            title: {
+                text: 'Security<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click to hide)</span>'
+            },
             labelFormatter: function() {
                 console.log(this);
                 return this.name.fullName +' ('+this.name.symbol+')';
